@@ -43,7 +43,6 @@ public class Cell {
         this.coordinate_Y = y;
     }
 
-    //@Override
     public boolean equals(Cell cell) {
         if ((this.coordinate_X == cell.coordinate_X) && (this.coordinate_Y == cell.coordinate_Y)) {
             return true;

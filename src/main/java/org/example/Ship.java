@@ -3,11 +3,11 @@ package org.example;
 import static java.lang.Math.*;
 
 public class Ship {
-    Cell begin;
-    Cell end;
-    boolean state;
-    int size;
-    Cell[] ship = new Cell[size];
+    private Cell begin;
+    private Cell end;
+    private boolean state;
+    private int size;
+    private Cell[] ship = new Cell[size];
 
     public Ship(Cell begin, Cell end) {
         this.begin = begin;
@@ -57,7 +57,4 @@ public class Ship {
         }
         return false;
     }
-
-
-
 }
