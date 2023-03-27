@@ -41,7 +41,10 @@ public class Field {
     }
 
     public void Print_field() {
-
+        System.out.println("  A B C D E F G H I J");
+        for (int i = 1; i <= this.size; i++) {
+            System.out.println(i + " * * * * * * * * * *");
+        }
     }
 
 }

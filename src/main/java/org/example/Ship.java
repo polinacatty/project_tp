@@ -57,4 +57,9 @@ public class Ship {
         }
         return false;
     }
+
+    public Cell Getter_cell(int i) {
+        return this.ship[i];
+    }
+
 }
