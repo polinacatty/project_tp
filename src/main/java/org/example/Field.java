@@ -5,7 +5,7 @@ public class Field {
 
 
     private int[] Count_Ships = {4, 3, 2, 1};
-    private int[][] field = new int[size][size];
+    private int[][] field = new int[10][10];
 
     public Field() {
         for (int i = 0; i < size; i++) {
@@ -43,7 +43,12 @@ public class Field {
     public void Print_field() {
         System.out.println("  A B C D E F G H I J");
         for (int i = 1; i <= this.size; i++) {
-            System.out.println(i + " * * * * * * * * * *");
+            if (i < 9) {
+                System.out.println(" " + i + " * * * * * * * * * *");
+            }
+            else {
+                System.out.println(i + " * * * * * * * * * *");
+            }
         }
     }
 

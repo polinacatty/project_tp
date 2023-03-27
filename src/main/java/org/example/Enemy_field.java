@@ -9,19 +9,25 @@ public class Enemy_field extends Field {
     @Override
     public void Print_field() {
         System.out.println("  A B C D E F G H I J");
-        for (int i = 1; i <= this.Getter_size(); i ++) {
-            System.out.println(i);
+        for (int i = 0; i < this.Getter_size(); i ++) {
+            if (i < 9) {
+                System.out.print(" " + (i+1));
+            }
+            else {
+                System.out.print(i+1);
+            }
             for (int j = 0; j < this.Getter_size(); j ++) {
                 if (this.Getter_cell(j, i) == 0) {
-                    System.out.println(" *");
+                    System.out.print(" *");
                 }
                 if (this.Getter_cell(j, i) == 1) {
-                    System.out.println(" #");
+                    System.out.print(" #");
                 }
                 if (this.Getter_cell(j, i) == 6) {
-                    System.out.println(" !");
+                    System.out.print(" !");
                 }
             }
+            System.out.println("");
         }
     }
 

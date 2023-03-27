@@ -15,7 +15,13 @@ public class Cell {
     }
 
     public Cell(String input) {
-        int number = Character.digit(input.charAt(1), 10);
+        int number;
+        if (input.length() == 3) {
+            number = 10;
+        }
+        else {
+            number = Character.digit(input.charAt(1), 10);
+        }
         this.coordinate_Y = number - 1;
         char letter = input.charAt(0);
         int code = (int) letter;
@@ -49,5 +55,13 @@ public class Cell {
         }
         return false;
     }
+
+    public boolean Cells_on_one_line(Cell cell) {
+        if ((this.coordinate_X == cell.coordinate_X) || (this.coordinate_Y == cell.coordinate_Y)) {
+            return true;
+        }
+        return false;
+    }
+
 }
 

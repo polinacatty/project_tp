@@ -7,21 +7,21 @@ public class Ship {
     private Cell end;
     private boolean state;
     private int size;
-    private Cell[] ship = new Cell[size];
+    private Cell[] ship = new Cell[4];
 
     public Ship(Cell begin, Cell end) {
         this.begin = begin;
         this.end = end;
         this.state = true;
         if (begin.Getter_coordinate_X() == end.Getter_coordinate_X()) {
-            this.size = abs(begin.Getter_coordinate_Y() - end.Getter_coordinate_Y());
+            this.size = abs(begin.Getter_coordinate_Y() - end.Getter_coordinate_Y()) + 1;
             for (int i = min(begin.Getter_coordinate_Y(), end.Getter_coordinate_Y()); i <= max(begin.Getter_coordinate_Y(), end.Getter_coordinate_Y()); i++) {
                 int j = i - min(begin.Getter_coordinate_Y(), end.Getter_coordinate_Y());
                 this.ship[j] = new Cell(begin.Getter_coordinate_X(), i);
             }
         }
         else {
-            this.size = abs(begin.Getter_coordinate_X() - end.Getter_coordinate_X());
+            this.size = abs(begin.Getter_coordinate_X() - end.Getter_coordinate_X()) + 1;
             for (int i = min(begin.Getter_coordinate_X(), end.Getter_coordinate_X()); i <= max(begin.Getter_coordinate_X(), end.Getter_coordinate_X()); i++) {
                 int j = i - min(begin.Getter_coordinate_X(), end.Getter_coordinate_X());
                 this.ship[j] = new Cell(i, begin.Getter_coordinate_Y());
@@ -60,6 +60,13 @@ public class Ship {
 
     public Cell Getter_cell(int i) {
         return this.ship[i];
+    }
+
+    public boolean Vertical() {
+        if (this.begin.Getter_coordinate_X() == this.end.Getter_coordinate_X()) {
+            return true;
+        }
+        return false;
     }
 
 }
