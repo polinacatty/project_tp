@@ -1,6 +1,7 @@
 package org.example;
 
-import static java.lang.Math.*;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 public class My_field extends Field {
     //0(*) - пустая клетка
