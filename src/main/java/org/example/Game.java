@@ -30,10 +30,10 @@ public class Game {
         }
 
         if (player_1.isLife()) {
-            System.out.println("GAME FINISH\n" + "player_1 win!!!");
+            System.out.println("GAME FINISH\n" + player_1.name + " win!!!");
         }
         else {
-            System.out.println("GAME FINISH\n" + "player_2 win!!!");
+            System.out.println("GAME FINISH\n" + player_2.name + " win!!!");
         }
 
     }
