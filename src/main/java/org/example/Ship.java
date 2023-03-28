@@ -5,14 +5,12 @@ import static java.lang.Math.*;
 public class Ship {
     private Cell begin;
     private Cell end;
-    private boolean state;
     private int size;
-    private Cell[] ship = new Cell[4];
+    private Cell[] ship = new Cell[10];
 
     public Ship(Cell begin, Cell end) {
         this.begin = begin;
         this.end = end;
-        this.state = true;
         if (begin.Getter_coordinate_X() == end.Getter_coordinate_X()) {
             this.size = abs(begin.Getter_coordinate_Y() - end.Getter_coordinate_Y()) + 1;
             for (int i = min(begin.Getter_coordinate_Y(), end.Getter_coordinate_Y()); i <= max(begin.Getter_coordinate_Y(), end.Getter_coordinate_Y()); i++) {
@@ -39,14 +37,6 @@ public class Ship {
 
     public Cell Getter_end() {
         return this.end;
-    }
-
-    public boolean State() {
-        return this.state;
-    }
-
-    public void Return_state___() {
-        this.state = false;
     }
 
     public boolean Cell_in_ship(Cell cell) {

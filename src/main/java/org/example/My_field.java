@@ -21,10 +21,6 @@ public class My_field extends Field {
         }
     }
 
-    //считает количество кораблей заданного размера
-    public int Count_ships_of_size(int size) {
-        return 0;
-    }
     @Override
     public void Print_field() {
         System.out.println("   A B C D E F G H I J");
@@ -117,6 +113,5 @@ public class My_field extends Field {
         }
         return false;
     }
-
 
 }

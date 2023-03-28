@@ -8,7 +8,7 @@ public class Enemy_field extends Field {
 
     @Override
     public void Print_field() {
-        System.out.println("  A B C D E F G H I J");
+        System.out.println("   A B C D E F G H I J");
         for (int i = 0; i < this.Getter_size(); i ++) {
             if (i < 9) {
                 System.out.print(" " + (i+1));
