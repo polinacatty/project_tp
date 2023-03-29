@@ -14,14 +14,14 @@ public class Game {
         Player player_1 = new Player(name_player1);
         Player player_2 = new Player(name_player2);
 
-        player_1.Placement_ships();
-        player_2.Placement_ships();
+        player_1.PlacementShips();
+        player_2.PlacementShips();
 
-        while (player_1.isLife()) {
+        while (player_1.IsLife()) {
 
             player_1.Turn(player_2);
 
-            if (player_2.isLife()) {
+            if (player_2.IsLife()) {
                 player_2.Turn(player_1);
             }
             else {
@@ -29,12 +29,11 @@ public class Game {
             }
         }
 
-        if (player_1.isLife()) {
+        if (player_1.IsLife()) {
             System.out.println("GAME FINISH\n" + player_1.name + " win!!!");
         }
         else {
             System.out.println("GAME FINISH\n" + player_2.name + " win!!!");
         }
-
     }
 }

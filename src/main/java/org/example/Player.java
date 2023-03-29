@@ -6,32 +6,32 @@ import static org.example.Game.scanner;
 
 public class Player {
     public String name;
-    public My_field my_field = new My_field();
-    public Enemy_field enemy_field = new Enemy_field();
-
-    public ArrayList<Ship> Ships = new ArrayList<>();
-
+    public MyField my_field = new MyField();
+    public EnemyField enemy_field = new EnemyField();
+    public ArrayList<Ship> ships = new ArrayList<>();
 
     public Player(String name) {
         this.name = name;
     }
 
-    public boolean All_ships_are_placed() {
+    //Метод, который проверяет все ли корабли расставлены
+    public boolean AllShipsArePlaced() {
         int count_1_deck_ships = 0;
         int count_2_deck_ships = 0;
         int count_3_deck_ships = 0;
         int count_4_deck_ships = 0;
-        for (int i = 0; i < this.Ships.size(); i++) {
-            if (this.Ships.get(i).Getter_size() == 1) {
+
+        for (int i = 0; i < this.ships.size(); i++) {
+            if (this.ships.get(i).GetterSize() == 1) {
                 count_1_deck_ships += 1;
             }
-            if (this.Ships.get(i).Getter_size() == 2) {
+            if (this.ships.get(i).GetterSize() == 2) {
                 count_2_deck_ships += 1;
             }
-            if (this.Ships.get(i).Getter_size() == 3) {
+            if (this.ships.get(i).GetterSize() == 3) {
                 count_3_deck_ships += 1;
             }
-            if (this.Ships.get(i).Getter_size() == 4) {
+            if (this.ships.get(i).GetterSize() == 4) {
                 count_4_deck_ships += 1;
             }
         }
@@ -42,18 +42,19 @@ public class Player {
         return false;
     }
 
-    //Возвращает true, если попал, false - иначе
+    //Метод, который проверяет, попал ли игрок по кораблю противника
     public boolean Hit(Cell cell, Player enemy) {
-        if ((enemy.my_field.Getter_cell(cell) == 0) || (enemy.my_field.Getter_cell(cell) == 1)) {
+        if ((enemy.my_field.GetterCell(cell) == 0) || (enemy.my_field.GetterCell(cell) == 1)) {
             return false;
         }
         return true;
     }
 
-    public Ship Ship_for_cell(Cell cell) {
-        for (int i = 0; i < this.Ships.size(); i++) {
-            if (this.Ships.get(i).Cell_in_ship(cell)) {
-                return this.Ships.get(i);
+    //Метод, который определяет корабль по заданной точке
+    public Ship ShipForCell(Cell cell) {
+        for (int i = 0; i < this.ships.size(); i++) {
+            if (this.ships.get(i).CellInShip(cell)) {
+                return this.ships.get(i);
             }
         }
         Cell cell_ = new Cell(0,0);
@@ -61,41 +62,42 @@ public class Player {
         return ship;
     }
 
-    public boolean Ship_is_dead(Cell cell) {
-        Ship ship = this.Ship_for_cell(cell);
-        for (int j = 0; j < ship.Getter_size(); j++) {
-            if (this.my_field.Getter_cell(ship.Getter_cell(j)) == 5) {
+    //Метод, который проверяет мертв ли корабль, содержащий заданную точку
+    public boolean ShipIsDead(Cell cell) {
+        Ship ship = this.ShipForCell(cell);
+        for (int j = 0; j < ship.GetterSize(); j++) {
+            if (this.my_field.GetterCell(ship.GetterCell(j)) == 5) {
                 return false;
             }
         }
         return true;
     }
 
-    //операция атаки: взаимодействие со своим полем и полем противника
+    //Метод, который преобразует собственное поле противника и поле противника, которое отображается у данного игрока
     public boolean Attack(Cell cell, Player enemy) {
-        enemy.my_field.Taking_shot(cell);
+        enemy.my_field.TakingShot(cell);
         this.enemy_field.Shot(cell, this.Hit(cell, enemy));
         return this.Hit(cell, enemy);
     }
 
-
+    //Ход данного игрока
     public void Turn(Player enemy) {
         System.out.println(this.name + ", your turn");
         System.out.println("Your field:");
-        this.my_field.Print_field();
+        this.my_field.PrintField();
         System.out.println("Enemy field:");
-        this.enemy_field.Print_field();
+        this.enemy_field.PrintField();
         System.out.println("Please enter coordinates of the cell where you want to shot to:");
-        Cell cell = new Cell(this.Try_input_coordinate());
+        Cell cell = new Cell(this.TryInputCoordinate());
         if (this.Attack(cell, enemy)) {
-            if (enemy.Ship_is_dead(cell)) {
+            if (enemy.ShipIsDead(cell)) {
                 System.out.println("Super!!! You hit the target, ship is dead");
-                this.enemy_field.Borders(enemy.Ship_for_cell(cell));
+                this.enemy_field.Borders(enemy.ShipForCell(cell));
             }
             else {
                 System.out.println("Super!!! You hit the target, but ship is not dead");
             }
-            if (enemy.isLife()) {
+            if (enemy.IsLife()) {
                 this.Turn(enemy);
             }
         }
@@ -104,45 +106,46 @@ public class Player {
         }
     }
 
-    public Cell Try_input_coordinate() {
+    //Метод, который обрабатывает исключение неверного ввода координаты
+    public Cell TryInputCoordinate() {
         String input = scanner.next();
-        if (this.Check_input_cell(input)) {
+        if (this.CheckInputCell(input)) {
             Cell cell = new Cell(input);
             return cell;
         }
         else {
             System.out.println("wrong input format, please, try again:");
-            return this.Try_input_coordinate();
+            return this.TryInputCoordinate();
         }
     }
 
-    public void Try_add_ship() {
+    //Метод, который обрабатывает исключения неверной постановки корабля
+    public void TryAddShip() {
         System.out.println("Enter the coordinate of the beginning of the ship:");
-        Cell begin = new Cell(this.Try_input_coordinate());
+        Cell begin = new Cell(this.TryInputCoordinate());
         System.out.println("Enter the coordinate of the end of the ship:");
-        Cell end = new Cell(this.Try_input_coordinate());
-        if (this.my_field.Can_add_ship(begin, end)) {
+        Cell end = new Cell(this.TryInputCoordinate());
+        if (this.my_field.CanAddShip(begin, end)) {
             Ship ship = new Ship(begin, end);
-            this.my_field.Add_ship(ship);
-            Ships.add(ship);
+            this.my_field.AddShip(ship);
+            ships.add(ship);
             System.out.println("You have successfully added a ship!");
         }
         else {
             System.out.println("You can`t add this ship, please, try again");
-            this.Try_add_ship();
+            this.TryAddShip();
         }
     }
 
-
-
-    public void Try_delete_ship() {
+    //Метод, который обрабатывает исключение неверного удаления корабля
+    public void TryDeleteShip() {
         System.out.println("Enter the coordinate of any cell of the ship:");
-        Cell any_cell = new Cell(this.Try_input_coordinate());
-        if (this.my_field.Can_delete_ship(any_cell)) {
-            for (int i = 0; i < this.Ships.size(); i++) {
-                if (this.Ships.get(i).Cell_in_ship(any_cell)) {
-                    this.my_field.Delete_ship(this.Ships.get(i));
-                    this.Ships.remove(i);
+        Cell any_cell = new Cell(this.TryInputCoordinate());
+        if (this.my_field.CanDeleteShip(any_cell)) {
+            for (int i = 0; i < this.ships.size(); i++) {
+                if (this.ships.get(i).CellInShip(any_cell)) {
+                    this.my_field.DeleteShip(this.ships.get(i));
+                    this.ships.remove(i);
                     break;
                 }
             }
@@ -150,21 +153,21 @@ public class Player {
         }
         else {
             System.out.println("You can`t delete this ship, please, try again");
-            this.Try_delete_ship();
+            this.TryDeleteShip();
         }
     }
 
-    //расстановка кораблей
-    public void Placement_ships() {
+    //Расстановка кораблей данного игрока
+    public void PlacementShips() {
 
         System.out.println("Hello, " + this.name + ", please, arrange your ships");
         System.out.println("Enter cell coordinates in the following format: 'letter''namber', for example 'b5' or 'A2'");
 
         while (true) {
 
-            this.my_field.Print_field();
+            this.my_field.PrintField();
 
-            if (this.All_ships_are_placed()) {
+            if (this.AllShipsArePlaced()) {
                 System.out.println("All ship are placed. Are you finish?");
                 System.out.println("Write yes/no");
                 if (scanner.next().equals("yes")) {
@@ -175,30 +178,30 @@ public class Player {
             System.out.println("If you want add ship, write 'add'; if you want delete ship, write 'del':");
             String input = scanner.next();
             if (input.equals("add")) {
-                this.Try_add_ship();
+                this.TryAddShip();
             }
             else {
                 if (input.equals("del")) {
-                    this.Try_delete_ship();
+                    this.TryDeleteShip();
                 }
                 else {
                     System.out.println("wrong input format, please, try again");
                 }
             }
-
         }
-
     }
 
-    public boolean isLife() {
-        return this.my_field.Survivors_ships();
+    //Метод, который проверяет жив ли игрок
+    public boolean IsLife() {
+        return this.my_field.SurvivorsShips();
     }
 
-    public boolean Check_input_cell(String input) {
-        if (input.matches("^[abcdefghijABCDEFGHIJ]{1}\\d{1}") || (input.matches("^[abcdefghijABCDEFGHIJ]{1}[1]{1}[0]{1}"))) {
+    //Метод, который проверяет правильно ли введена координата
+    public boolean CheckInputCell(String input) {
+        if (input.matches("^[abcdefghijABCDEFGHIJ]{1}\\d{1}")
+                || (input.matches("^[abcdefghijABCDEFGHIJ]{1}[1]{1}[0]{1}"))) {
             return true;
         }
         return false;
     }
-
 }

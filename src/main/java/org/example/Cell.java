@@ -1,19 +1,20 @@
 package org.example;
 
 public class Cell {
-    private int coordinate_X;
-    private int coordinate_Y;
+    private int coordinate_x;
+    private int coordinate_y;
 
-    public Cell(int coordinate_X, int coordinate_Y) {
-        this.coordinate_X = coordinate_X;
-        this.coordinate_Y = coordinate_Y;
+    public Cell(int coordinateX, int coordinateY) {
+        this.coordinate_x = coordinateX;
+        this.coordinate_y = coordinateY;
     }
 
     public Cell(Cell cell) {
-        this.coordinate_X = cell.coordinate_X;
-        this.coordinate_Y = cell.coordinate_Y;
+        this.coordinate_x = cell.coordinate_x;
+        this.coordinate_y = cell.coordinate_y;
     }
 
+    //Конструктор, с помощью которого создается клетка от строки вида 'буква''цифра', например: 'a1'
     public Cell(String input) {
         int number;
         if (input.length() == 3) {
@@ -22,45 +23,45 @@ public class Cell {
         else {
             number = Character.digit(input.charAt(1), 10);
         }
-        this.coordinate_Y = number - 1;
+        this.coordinate_y = number - 1;
         char letter = input.charAt(0);
         int code = (int) letter;
         if (code < 80) {
-            this.coordinate_X = code - 65;
+            this.coordinate_y = code - 65;
         }
         else {
-            this.coordinate_X = code - 97;
+            this.coordinate_x = code - 97;
         }
     }
 
-    public int Getter_coordinate_X() {
-        return this.coordinate_X;
+    public int GetterCoordinateX() {
+        return this.coordinate_x;
     }
 
-    public int Getter_coordinate_Y() {
-        return this.coordinate_Y;
+    public int GetterCoordinateY() {
+        return this.coordinate_y;
     }
 
-    public void Setter_coordinate_X(int x) {
-        this.coordinate_X = x;
+    public void SetterCoordinateX(int x) {
+        this.coordinate_x = x;
     }
 
-    public void Setter_coordinate_Y(int y) {
-        this.coordinate_Y = y;
+    public void SetterCoordinateY(int y) {
+        this.coordinate_y = y;
     }
 
-    public boolean equals(Cell cell) {
-        if ((this.coordinate_X == cell.coordinate_X) && (this.coordinate_Y == cell.coordinate_Y)) {
+    public boolean Equals(Cell cell) {
+        if ((this.coordinate_x == cell.coordinate_x) && (this.coordinate_y == cell.coordinate_y)) {
             return true;
         }
         return false;
     }
 
-    public boolean Cells_on_one_line(Cell cell) {
-        if ((this.coordinate_X == cell.coordinate_X) || (this.coordinate_Y == cell.coordinate_Y)) {
+    //Метод, который проверяет, стоят ли клетки на одной линии
+    public boolean CellsOnOneLine(Cell cell) {
+        if ((this.coordinate_x == cell.coordinate_x) || (this.coordinate_y == cell.coordinate_y)) {
             return true;
         }
         return false;
     }
-
 }
