@@ -15,7 +15,7 @@ public class Player {
     }
 
     //Метод, который проверяет все ли корабли расставлены
-    public boolean AllShipsArePlaced() {
+    private boolean AllShipsArePlaced() {
         int count_1_deck_ships = 0;
         int count_2_deck_ships = 0;
         int count_3_deck_ships = 0;
@@ -36,14 +36,14 @@ public class Player {
             }
         }
 
-        if ((count_1_deck_ships == 4) && (count_2_deck_ships == 3) && (count_3_deck_ships == 2) && (count_4_deck_ships == 1)) {
+        if ((count_1_deck_ships == 1) && (count_2_deck_ships == 1) && (count_3_deck_ships == 0) && (count_4_deck_ships == 0)) {
             return true;
         }
         return false;
     }
 
     //Метод, который проверяет, попал ли игрок по кораблю противника
-    public boolean Hit(Cell cell, Player enemy) {
+    private boolean Hit(Cell cell, Player enemy) {
         if ((enemy.my_field.GetterCell(cell) == 0) || (enemy.my_field.GetterCell(cell) == 1)) {
             return false;
         }
@@ -51,7 +51,7 @@ public class Player {
     }
 
     //Метод, который определяет корабль по заданной точке
-    public Ship ShipForCell(Cell cell) {
+    private Ship ShipForCell(Cell cell) {
         for (int i = 0; i < this.ships.size(); i++) {
             if (this.ships.get(i).CellInShip(cell)) {
                 return this.ships.get(i);
@@ -63,7 +63,7 @@ public class Player {
     }
 
     //Метод, который проверяет мертв ли корабль, содержащий заданную точку
-    public boolean ShipIsDead(Cell cell) {
+    private boolean ShipIsDead(Cell cell) {
         Ship ship = this.ShipForCell(cell);
         for (int j = 0; j < ship.GetterSize(); j++) {
             if (this.my_field.GetterCell(ship.GetterCell(j)) == 5) {
@@ -74,7 +74,7 @@ public class Player {
     }
 
     //Метод, который преобразует собственное поле противника и поле противника, которое отображается у данного игрока
-    public boolean Attack(Cell cell, Player enemy) {
+    private boolean Attack(Cell cell, Player enemy) {
         enemy.my_field.TakingShot(cell);
         this.enemy_field.Shot(cell, this.Hit(cell, enemy));
         return this.Hit(cell, enemy);
@@ -107,7 +107,7 @@ public class Player {
     }
 
     //Метод, который обрабатывает исключение неверного ввода координаты
-    public Cell TryInputCoordinate() {
+    private Cell TryInputCoordinate() {
         String input = scanner.next();
         if (this.CheckInputCell(input)) {
             Cell cell = new Cell(input);
@@ -120,7 +120,7 @@ public class Player {
     }
 
     //Метод, который обрабатывает исключения неверной постановки корабля
-    public void TryAddShip() {
+    private void TryAddShip() {
         System.out.println("Enter the coordinate of the beginning of the ship:");
         Cell begin = new Cell(this.TryInputCoordinate());
         System.out.println("Enter the coordinate of the end of the ship:");
@@ -138,7 +138,7 @@ public class Player {
     }
 
     //Метод, который обрабатывает исключение неверного удаления корабля
-    public void TryDeleteShip() {
+    private void TryDeleteShip() {
         System.out.println("Enter the coordinate of any cell of the ship:");
         Cell any_cell = new Cell(this.TryInputCoordinate());
         if (this.my_field.CanDeleteShip(any_cell)) {
@@ -197,7 +197,7 @@ public class Player {
     }
 
     //Метод, который проверяет правильно ли введена координата
-    public boolean CheckInputCell(String input) {
+    private boolean CheckInputCell(String input) {
         if (input.matches("^[abcdefghijABCDEFGHIJ]{1}\\d{1}")
                 || (input.matches("^[abcdefghijABCDEFGHIJ]{1}[1]{1}[0]{1}"))) {
             return true;
