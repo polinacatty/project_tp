@@ -16,3 +16,7 @@
 Цель игрока: первым убить все игровые "корабли" врага.
 
 Версия языка: java 11
+
+Команда для сборки: javac -d bin ./src/main/java/org/example/*
+
+Команда для запуска: java -classpath bin org/example/Game
