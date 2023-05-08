@@ -18,4 +18,5 @@
 Требования к ПО: java 11; maven 3.9.1
 
 Команда для сборки: mvn package
+
 Команда для запуска: java -jar project_tp-1.0-SNAPSHOT.jar
