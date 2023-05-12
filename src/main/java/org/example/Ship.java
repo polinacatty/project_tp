@@ -1,9 +1,5 @@
 package org.example;
 
-//import static java.lang.Math.Math.max;
-//import static java.lang.Math.Math.min;
-//import static java.lang.Math.Math.abs;
-
 public class Ship {
     private Cell begin;
     private Cell end;

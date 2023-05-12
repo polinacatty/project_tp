@@ -1,7 +1,6 @@
 package org.example;
 
 import java.util.ArrayList;
-import static org.example.Game.scanner;
 
 public class Player {
     private String name;
@@ -121,7 +120,7 @@ public class Player {
 
     //Метод, который обрабатывает исключение неверного ввода координаты
     private Cell tryInputCoordinate() {
-        String input = scanner.next();
+        String input = Game.scanner.next();
         if (this.checkInputCell(input)) {
             Cell cell = new Cell(input);
             return cell;
@@ -181,13 +180,13 @@ public class Player {
             if (this.allShipsArePlaced()) {
                 System.out.println("All ship are placed. Are you finish?");
                 System.out.println("Write yes/no");
-                if (scanner.next().equals("yes")) {
+                if (Game.scanner.next().equals("yes")) {
                     break;
                 }
             }
 
             System.out.println("If you want add ship, write 'add'; if you want delete ship, write 'del':");
-            String input = scanner.next();
+            String input = Game.scanner.next();
             if (input.equals("add")) {
                 this.tryAddShip();
             } else {

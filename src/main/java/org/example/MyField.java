@@ -1,8 +1,5 @@
 package org.example;
 
-//import static java.lang.Math.max;
-//import static java.lang.Math.min;
-
 public class MyField extends Field {
     //0(*) - пустая клетка
     //1(#) - пустая клетка, в нее был выстрел противника
