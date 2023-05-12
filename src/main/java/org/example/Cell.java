@@ -1,17 +1,17 @@
 package org.example;
 
 public class Cell {
-    private int coordinate_x;
-    private int coordinate_y;
+    private int coordinateX;
+    private int coordinateY;
 
     public Cell(int coordinateX, int coordinateY) {
-        this.coordinate_x = coordinateX;
-        this.coordinate_y = coordinateY;
+        this.coordinateX = coordinateX;
+        this.coordinateY = coordinateY;
     }
 
     public Cell(Cell cell) {
-        this.coordinate_x = cell.coordinate_x;
-        this.coordinate_y = cell.coordinate_y;
+        this.coordinateX = cell.coordinateX;
+        this.coordinateY = cell.coordinateY;
     }
 
     //Конструктор, с помощью которого создается клетка от строки вида 'буква''цифра', например: 'a1'
@@ -19,47 +19,45 @@ public class Cell {
         int number;
         if (input.length() == 3) {
             number = 10;
-        }
-        else {
+        } else {
             number = Character.digit(input.charAt(1), 10);
         }
-        this.coordinate_y = number - 1;
+        this.coordinateY = number - 1;
         char letter = input.charAt(0);
         int code = (int) letter;
         if (code < 80) {
-            this.coordinate_y = code - 65;
+            this.coordinateY = code - 65;
+        } else {
+            this.coordinateX = code - 97;
         }
-        else {
-            this.coordinate_x = code - 97;
-        }
     }
 
-    public int GetterCoordinateX() {
-        return this.coordinate_x;
+    public int getterCoordinateX() {
+        return this.coordinateX;
     }
 
-    public int GetterCoordinateY() {
-        return this.coordinate_y;
+    public int getterCoordinateY() {
+        return this.coordinateY;
     }
 
-    public void SetterCoordinateX(int x) {
-        this.coordinate_x = x;
+    public void setterCoordinateX(int x) {
+        this.coordinateX = x;
     }
 
-    public void SetterCoordinateY(int y) {
-        this.coordinate_y = y;
+    public void setterCoordinateY(int y) {
+        this.coordinateY = y;
     }
 
-    public boolean Equals(Cell cell) {
-        if ((this.coordinate_x == cell.coordinate_x) && (this.coordinate_y == cell.coordinate_y)) {
+    public boolean equals(Cell cell) {
+        if (this.coordinateX == cell.coordinateX && this.coordinateY == cell.coordinateY) {
             return true;
         }
         return false;
     }
 
     //Метод, который проверяет, стоят ли клетки на одной линии
-    public boolean CellsOnOneLine(Cell cell) {
-        if ((this.coordinate_x == cell.coordinate_x) || (this.coordinate_y == cell.coordinate_y)) {
+    public boolean cellsOnOneLine(Cell cell) {
+        if (this.coordinateX == cell.coordinateX || this.coordinateY == cell.coordinateY) {
             return true;
         }
         return false;

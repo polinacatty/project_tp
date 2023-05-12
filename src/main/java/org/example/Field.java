@@ -1,8 +1,5 @@
 package org.example;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
 public class Field {
     public static final int SIZE = 10;
     private int[][] field = new int[SIZE][SIZE];
@@ -15,62 +12,60 @@ public class Field {
         }
     }
 
-    public int GetterSize() {
+    public int getterSize() {
         return this.SIZE;
     }
 
-    public int GetterCell(int x, int y) {
+    public int getterCell(int x, int y) {
         return this.field[x][y];
     }
 
-    public int GetterCell(Cell cell) {
-        return this.field[cell.GetterCoordinateX()][cell.GetterCoordinateY()];
+    public int getterCell(Cell cell) {
+        return this.field[cell.getterCoordinateX()][cell.getterCoordinateY()];
     }
 
-    public void SetterCell(int x, int y, int n) {
+    public void setterCell(int x, int y, int n) {
         this.field[x][y] = n;
     }
 
-    public void SetterCell(Cell cell, int n) {
-        this.field[cell.GetterCoordinateX()][cell.GetterCoordinateY()] = n;
+    public void setterCell(Cell cell, int n) {
+        this.field[cell.getterCoordinateX()][cell.getterCoordinateY()] = n;
     }
 
-    public void PrintField() {
+    public void printField() {
         System.out.println("  A B C D E F G H I J");
         for (int i = 1; i <= this.SIZE; i++) {
             if (i < 9) {
                 System.out.println(" " + i + " * * * * * * * * * *");
-            }
-            else {
+            } else {
                 System.out.println(i + " * * * * * * * * * *");
             }
         }
     }
 
     //Метод, при помощи которого клетки вокруг корабля обретают статус видимых-пустых
-    public void Borders(Ship ship) {
-        int begin_x = ship.GetterBegin().GetterCoordinateX();
-        int begin_y = ship.GetterBegin().GetterCoordinateY();
-        int end_x = ship.GetterEnd().GetterCoordinateX();
-        int end_y = ship.GetterEnd().GetterCoordinateY();
+    public void borders(Ship ship) {
+        int beginX = ship.getterBegin().getterCoordinateX();
+        int beginY = ship.getterBegin().getterCoordinateY();
+        int endX = ship.getterEnd().getterCoordinateX();
+        int endY = ship.getterEnd().getterCoordinateY();
 
-        if(ship.Vertical()) {
-            for (int i = begin_x - 1; i <= begin_x + 1; i++) {
-                for (int j = min(begin_y, end_y) - 1; j <= max(begin_y, end_y) + 1; j ++) {
-                    if ((i>=0) && (j>=0) && (i<10) && (j<10)) {
-                        if ((this.GetterCell(i, j) != 5) && (this.GetterCell(i, j) != 6)) {
-                            this.SetterCell(i, j, 1);
+        if (ship.vertical()) {
+            for (int i = beginX - 1; i <= beginX + 1; i++) {
+                for (int j = Math.min(beginY, endY) - 1; j <= Math.max(beginY, endY) + 1; j++) {
+                    if (i >= 0 && j >= 0 && i < 10 && j < 10) {
+                        if (this.getterCell(i, j) != 5 && this.getterCell(i, j) != 6) {
+                            this.setterCell(i, j, 1);
                         }
                     }
                 }
             }
-        }
-        else {
-            for (int j = begin_y - 1; j <= begin_y + 1; j++) {
-                for (int i = min(begin_x, end_x) - 1; i <= max(begin_x, end_x) + 1; i ++) {
-                    if ((i>=0) && (j>=0) && (i<10) && (j<10)) {
-                        if ((this.GetterCell(i, j) != 5) && (this.GetterCell(i, j) != 6)) {
-                            this.SetterCell(i, j, 1);
+        } else {
+            for (int j = beginY - 1; j <= beginY + 1; j++) {
+                for (int i = Math.min(beginX, endX) - 1; i <= Math.max(beginX, endX) + 1; i++) {
+                    if (i >= 0 && j >= 0 && i < 10 && j < 10) {
+                        if (this.getterCell(i, j) != 5 && this.getterCell(i, j) != 6) {
+                            this.setterCell(i, j, 1);
                         }
                     }
                 }

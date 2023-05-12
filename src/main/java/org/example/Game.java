@@ -4,36 +4,35 @@ import java.util.Scanner;
 
 public class Game {
     static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
 
         System.out.println("Player1, enter your name");
-        String name_player1 =  scanner.nextLine();
+        String namePlayer1 = scanner.nextLine();
         System.out.println("Player2, enter your name");
-        String name_player2 =  scanner.nextLine();
+        String namePlayer2 = scanner.nextLine();
 
-        Player player_1 = new Player(name_player1);
-        Player player_2 = new Player(name_player2);
+        Player player1 = new Player(namePlayer1);
+        Player player2 = new Player(namePlayer2);
 
-        player_1.PlacementShips();
-        player_2.PlacementShips();
+        player1.placementShips();
+        player2.placementShips();
 
-        while (player_1.IsLife()) {
+        while (player1.isLife()) {
 
-            player_1.Turn(player_2);
+            player1.turn(player2);
 
-            if (player_2.IsLife()) {
-                player_2.Turn(player_1);
-            }
-            else {
+            if (player2.isLife()) {
+                player2.turn(player1);
+            } else {
                 break;
             }
         }
 
-        if (player_1.IsLife()) {
-            System.out.println("GAME FINISH\n" + player_1.name + " win!!!");
-        }
-        else {
-            System.out.println("GAME FINISH\n" + player_2.name + " win!!!");
+        if (player1.isLife()) {
+            System.out.println("GAME FINISH\n" + player1.getterName() + " win!!!");
+        } else {
+            System.out.println("GAME FINISH\n" + player2.getterName() + " win!!!");
         }
     }
 }

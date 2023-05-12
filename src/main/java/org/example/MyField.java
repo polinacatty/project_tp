@@ -1,7 +1,7 @@
 package org.example;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
+//import static java.lang.Math.max;
+//import static java.lang.Math.min;
 
 public class MyField extends Field {
     //0(*) - пустая клетка
@@ -9,41 +9,42 @@ public class MyField extends Field {
     //5(@) - клетка принадлежит кораблю
     //6(!) - клетка принадлежит кораблю, в нее был выстрел противника
 
+    public MyField() { }
+    
     //Метод, который добавляет корабль на поле
-    public void AddShip(Ship ship) {
-        for (int i = 0; i < ship.GetterSize(); i++) {
-            this.SetterCell(ship.GetterCell(i), 5);
+    public void addShip(Ship ship) {
+        for (int i = 0; i < ship.getterSize(); i++) {
+            this.setterCell(ship.getterCell(i), 5);
         }
     }
 
     //Метод, который удаляет корабль с поля
-    public void DeleteShip(Ship ship) {
-        for (int i = 0; i < ship.GetterSize(); i++) {
-            this.SetterCell(ship.GetterCell(i), 0);
+    public void deleteShip(Ship ship) {
+        for (int i = 0; i < ship.getterSize(); i++) {
+            this.setterCell(ship.getterCell(i), 0);
         }
     }
 
     @Override
-    public void PrintField() {
+    public void printField() {
         System.out.println("   A B C D E F G H I J");
-        for (int i = 0; i < this.GetterSize(); i ++) {
+        for (int i = 0; i < this.getterSize(); i++) {
             if (i < 9) {
-                System.out.print(" " + (i+1));
+                System.out.print(" " + (i + 1));
+            } else {
+                System.out.print(i + 1);
             }
-            else {
-                System.out.print(i+1);
-            }
-            for (int j = 0; j < this.GetterSize(); j ++) {
-                if (this.GetterCell(j, i) == 0) {
+            for (int j = 0; j < this.getterSize(); j++) {
+                if (this.getterCell(j, i) == 0) {
                     System.out.print(" *");
                 }
-                if (this.GetterCell(j, i) == 1) {
+                if (this.getterCell(j, i) == 1) {
                     System.out.print(" #");
                 }
-                if (this.GetterCell(j, i) == 5) {
+                if (this.getterCell(j, i) == 5) {
                     System.out.print(" @");
                 }
-                if (this.GetterCell(j, i) == 6) {
+                if (this.getterCell(j, i) == 6) {
                     System.out.print(" !");
                 }
             }
@@ -52,20 +53,20 @@ public class MyField extends Field {
     }
 
     //Метод, который преобразует поле после входящего выстрела
-    public void TakingShot(Cell cell) {
-        if (this.GetterCell(cell) == 0) {
-            this.SetterCell(cell, 1);
+    public void takingShot(Cell cell) {
+        if (this.getterCell(cell) == 0) {
+            this.setterCell(cell, 1);
         }
-        if (this.GetterCell(cell) == 5) {
-            this.SetterCell(cell, 6);
+        if (this.getterCell(cell) == 5) {
+            this.setterCell(cell, 6);
         }
     }
 
     //Метод, который проверяет есть ли на поле живые корабли
-    public boolean SurvivorsShips() {
-        for (int i = 0; i < this.GetterSize(); i++) {
-            for (int j = 0; j < this.GetterSize(); j++) {
-                if (this.GetterCell(i, j) == 5) {
+    public boolean survivorsShips() {
+        for (int i = 0; i < this.getterSize(); i++) {
+            for (int j = 0; j < this.getterSize(); j++) {
+                if (this.getterCell(i, j) == 5) {
                     return true;
                 }
             }
@@ -74,32 +75,31 @@ public class MyField extends Field {
     }
 
     //Метод, который проверяет, можно ли на поле поставить корабль с данными началом и концом
-    public boolean CanAddShip(Cell cell1, Cell cell2) {
-        int cell1_x = cell1.GetterCoordinateX();
-        int cell1_y = cell1.GetterCoordinateY();
-        int cell2_x = cell2.GetterCoordinateX();
-        int cell2_y = cell2.GetterCoordinateY();
+    public boolean canAddShip(Cell cell1, Cell cell2) {
+        int cell1X = cell1.getterCoordinateX();
+        int cell1Y = cell1.getterCoordinateY();
+        int cell2X = cell2.getterCoordinateX();
+        int cell2Y = cell2.getterCoordinateY();
 
-        if (cell1.CellsOnOneLine(cell2)) {
+        if (cell1.cellsOnOneLine(cell2)) {
             Ship ship = new Ship(cell1, cell2);
-            if (ship.GetterSize() <5) {
-                if (ship.Vertical()) {
-                    for (int i = cell1_x - 1; i <= cell1_x + 1; i++) {
-                        for (int j = min(cell1_y, cell2_y) - 1; j <= max(cell1_y, cell2_y) + 1; j ++) {
-                            if ((i>=0) && (j>=0) && (i<10) && (j<10)) {
-                                if (this.GetterCell(i, j) != 0) {
+            if (ship.getterSize() < 5) {
+                if (ship.vertical()) {
+                    for (int i = cell1X - 1; i <= cell1X + 1; i++) {
+                        for (int j = Math.min(cell1Y, cell2Y) - 1; j <= Math.max(cell1Y, cell2Y) + 1; j++) {
+                            if (i >= 0 && j >= 0 && i < 10 && j < 10) {
+                                if (this.getterCell(i, j) != 0) {
                                     return false;
                                 }
                             }
                         }
                     }
                     return true;
-                }
-                else {
-                    for (int j = cell1_y - 1; j < cell1_y + 2; j++) {
-                        for (int i = min(cell1_x, cell2_x) - 1; i <= max(cell1_x, cell2_x) + 1; i ++) {
-                            if ((i>=0) && (j>=0) && (i<10) && (j<10)) {
-                                if (this.GetterCell(i, j) != 0) {
+                } else {
+                    for (int j = cell1Y - 1; j < cell1Y + 2; j++) {
+                        for (int i = Math.min(cell1X, cell2X) - 1; i <= Math.max(cell1X, cell2X) + 1; i++) {
+                            if (i >= 0 && j >= 0 && i < 10 && j < 10) {
+                                if (this.getterCell(i, j) != 0) {
                                     return false;
                                 }
                             }
@@ -113,8 +113,8 @@ public class MyField extends Field {
     }
 
     //Метод, который проверяет, можно ли удалить корабль по заданной точке
-    public boolean CanDeleteShip(Cell anyCell) {
-        if (this.GetterCell(anyCell) == 5) {
+    public boolean canDeleteShip(Cell anyCell) {
+        if (this.getterCell(anyCell) == 5) {
             return true;
         }
         return false;

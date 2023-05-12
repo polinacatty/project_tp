@@ -1,8 +1,8 @@
 package org.example;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-import static java.lang.Math.abs;
+//import static java.lang.Math.Math.max;
+//import static java.lang.Math.Math.min;
+//import static java.lang.Math.Math.abs;
 
 public class Ship {
     private Cell begin;
@@ -13,43 +13,42 @@ public class Ship {
     public Ship(Cell begin, Cell end) {
         this.begin = begin;
         this.end = end;
-        int begin_x = begin.GetterCoordinateX();
-        int begin_y = begin.GetterCoordinateY();
-        int end_x = end.GetterCoordinateX();
-        int end_y = end.GetterCoordinateY();
+        int beginX = begin.getterCoordinateX();
+        int beginY = begin.getterCoordinateY();
+        int endX = end.getterCoordinateX();
+        int endY = end.getterCoordinateY();
 
-        if (begin_x == end_x) {
-            this.size = abs(begin_y - end_y) + 1;
-            for (int i = min(begin_y, end_y); i <= max(begin_y, end_y); i++) {
-                int j = i - min(begin_y, end_y);
-                this.ship[j] = new Cell(begin_x, i);
+        if (beginX == endX) {
+            this.size = Math.abs(beginY - endY) + 1;
+            for (int i = Math.min(beginY, endY); i <= Math.max(beginY, endY); i++) {
+                int j = i - Math.min(beginY, endY);
+                this.ship[j] = new Cell(beginX, i);
             }
-        }
-        else {
-            this.size = abs(begin_x - end_x) + 1;
-            for (int i = min(begin_x, end_x); i <= max(begin_x, end_x); i++) {
-                int j = i - min(begin_x, end_x);
-                this.ship[j] = new Cell(i, begin_y);
+        } else {
+            this.size = Math.abs(beginX - endX) + 1;
+            for (int i = Math.min(beginX, endX); i <= Math.max(beginX, endX); i++) {
+                int j = i - Math.min(beginX, endX);
+                this.ship[j] = new Cell(i, beginY);
             }
         }
     }
 
-    public int GetterSize() {
+    public int getterSize() {
         return this.size;
     }
 
-    public Cell GetterBegin() {
+    public Cell getterBegin() {
         return this.begin;
     }
 
-    public Cell GetterEnd() {
+    public Cell getterEnd() {
         return this.end;
     }
 
     //Метод, который проверяет, содержится ли данная клетка в корабле
-    public boolean CellInShip(Cell cell) {
+    public boolean cellInShip(Cell cell) {
         for (int i = 0; i < this.size; i++) {
-            if (this.ship[i].Equals(cell)) {
+            if (this.ship[i].equals(cell)) {
                 return true;
             }
         }
@@ -57,14 +56,14 @@ public class Ship {
     }
 
     //Метод, который возвращает клетку корабля по индексу
-    public Cell GetterCell(int i) {
+    public Cell getterCell(int i) {
         return this.ship[i];
     }
 
     //Метод, который определяет вертикальный корабль или горизонтальный.
     //Возвращает true, если корабль вертикальный, false - если горизонтальный
-    public boolean Vertical() {
-        if (this.begin.GetterCoordinateX() == this.end.GetterCoordinateX()) {
+    public boolean vertical() {
+        if (this.begin.getterCoordinateX() == this.end.getterCoordinateX()) {
             return true;
         }
         return false;
