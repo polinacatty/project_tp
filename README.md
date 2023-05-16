@@ -19,4 +19,4 @@
 
 Команда для сборки: mvn package
 
-Команда для запуска: java -jar project_tp-1.0-SNAPSHOT.jar
+Команда для запуска: cd target && java -jar project_tp-1.0-SNAPSHOT.jar
