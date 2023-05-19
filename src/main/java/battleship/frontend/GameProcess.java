@@ -28,7 +28,7 @@ public class GameProcess {
         System.out.println("Hello, " + player.getName() + ", please, arrange your ships");
         System.out.println("Enter cell coordinates in the following format:"
                 + " 'letter''number', for example 'b5' or 'A2'");
-        System.out.println("If you want to capitulate, than print 'sur'");
+        System.out.println("If you want to capitulate, than print 'cup'");
 
         while (true) {
             PrintMyField printMyField = new PrintMyField(player.getMyField());
@@ -41,7 +41,7 @@ public class GameProcess {
                 if (input.equals("yes")) {
                     break;
                 } else {
-                    if (input.equals("sur")) {
+                    if (input.equals("cup")) {
                         return true;
                     }
                 }
@@ -60,7 +60,7 @@ public class GameProcess {
                         return true;
                     }
                     break;
-                case "sur":
+                case "cup":
                     return true;
                 default:
                     System.out.println("wrong input format, please, try again");
@@ -105,7 +105,7 @@ public class GameProcess {
         if (checkInputCell(input)) {
             return new Cell(input);
         } else {
-            if (input.equals("sur")) {
+            if (input.equals("cup")) {
                 return new Cell(-1, -1);
             } else {
                 System.out.println("wrong input format, please, try again:");
