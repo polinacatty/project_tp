@@ -1,4 +1,4 @@
-package org.example;
+package battleship.backend;
 
 public class Ship {
     private Cell begin;
@@ -9,10 +9,10 @@ public class Ship {
     public Ship(Cell begin, Cell end) {
         this.begin = begin;
         this.end = end;
-        int beginX = begin.getterCoordinateX();
-        int beginY = begin.getterCoordinateY();
-        int endX = end.getterCoordinateX();
-        int endY = end.getterCoordinateY();
+        int beginX = begin.getCoordinateX();
+        int beginY = begin.getCoordinateY();
+        int endX = end.getCoordinateX();
+        int endY = end.getCoordinateY();
 
         if (beginX == endX) {
             this.size = Math.abs(beginY - endY) + 1;
@@ -29,15 +29,15 @@ public class Ship {
         }
     }
 
-    public int getterSize() {
+    public int getSize() {
         return this.size;
     }
 
-    public Cell getterBegin() {
+    public Cell getBegin() {
         return this.begin;
     }
 
-    public Cell getterEnd() {
+    public Cell getEnd() {
         return this.end;
     }
 
@@ -52,14 +52,14 @@ public class Ship {
     }
 
     //Метод, который возвращает клетку корабля по индексу
-    public Cell getterCell(int i) {
+    public Cell getCell(int i) {
         return this.ship[i];
     }
 
     //Метод, который определяет вертикальный корабль или горизонтальный.
     //Возвращает true, если корабль вертикальный, false - если горизонтальный
     public boolean vertical() {
-        if (this.begin.getterCoordinateX() == this.end.getterCoordinateX()) {
+        if (this.begin.getCoordinateX() == this.end.getCoordinateX()) {
             return true;
         }
         return false;

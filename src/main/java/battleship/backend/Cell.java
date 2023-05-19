@@ -1,4 +1,4 @@
-package org.example;
+package battleship.backend;
 
 public class Cell {
     private int coordinateX;
@@ -32,19 +32,19 @@ public class Cell {
         }
     }
 
-    public int getterCoordinateX() {
+    public int getCoordinateX() {
         return this.coordinateX;
     }
 
-    public int getterCoordinateY() {
+    public int getCoordinateY() {
         return this.coordinateY;
     }
 
-    public void setterCoordinateX(int x) {
+    public void setCoordinateX(int x) {
         this.coordinateX = x;
     }
 
-    public void setterCoordinateY(int y) {
+    public void setCoordinateY(int y) {
         this.coordinateY = y;
     }
 

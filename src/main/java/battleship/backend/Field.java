@@ -1,4 +1,4 @@
-package org.example;
+package battleship.backend;
 
 public class Field {
     public static final int SIZE = 10;
@@ -12,50 +12,39 @@ public class Field {
         }
     }
 
-    public int getterSize() {
+    public int getSize() {
         return this.SIZE;
     }
 
-    public int getterCell(int x, int y) {
+    public int getCell(int x, int y) {
         return this.field[x][y];
     }
 
-    public int getterCell(Cell cell) {
-        return this.field[cell.getterCoordinateX()][cell.getterCoordinateY()];
+    public int getCell(Cell cell) {
+        return this.field[cell.getCoordinateX()][cell.getCoordinateY()];
     }
 
-    public void setterCell(int x, int y, int n) {
+    public void setCell(int x, int y, int n) {
         this.field[x][y] = n;
     }
 
-    public void setterCell(Cell cell, int n) {
-        this.field[cell.getterCoordinateX()][cell.getterCoordinateY()] = n;
-    }
-
-    public void printField() {
-        System.out.println("  A B C D E F G H I J");
-        for (int i = 1; i <= this.SIZE; i++) {
-            if (i < 9) {
-                System.out.println(" " + i + " * * * * * * * * * *");
-            } else {
-                System.out.println(i + " * * * * * * * * * *");
-            }
-        }
+    public void setCell(Cell cell, int n) {
+        this.field[cell.getCoordinateX()][cell.getCoordinateY()] = n;
     }
 
     //Метод, при помощи которого клетки вокруг корабля обретают статус видимых-пустых
     public void borders(Ship ship) {
-        int beginX = ship.getterBegin().getterCoordinateX();
-        int beginY = ship.getterBegin().getterCoordinateY();
-        int endX = ship.getterEnd().getterCoordinateX();
-        int endY = ship.getterEnd().getterCoordinateY();
+        int beginX = ship.getBegin().getCoordinateX();
+        int beginY = ship.getBegin().getCoordinateY();
+        int endX = ship.getEnd().getCoordinateX();
+        int endY = ship.getEnd().getCoordinateY();
 
         if (ship.vertical()) {
             for (int i = beginX - 1; i <= beginX + 1; i++) {
                 for (int j = Math.min(beginY, endY) - 1; j <= Math.max(beginY, endY) + 1; j++) {
                     if (i >= 0 && j >= 0 && i < 10 && j < 10) {
-                        if (this.getterCell(i, j) != 5 && this.getterCell(i, j) != 6) {
-                            this.setterCell(i, j, 1);
+                        if (this.getCell(i, j) != 5 && this.getCell(i, j) != 6) {
+                            this.setCell(i, j, 1);
                         }
                     }
                 }
@@ -64,8 +53,8 @@ public class Field {
             for (int j = beginY - 1; j <= beginY + 1; j++) {
                 for (int i = Math.min(beginX, endX) - 1; i <= Math.max(beginX, endX) + 1; i++) {
                     if (i >= 0 && j >= 0 && i < 10 && j < 10) {
-                        if (this.getterCell(i, j) != 5 && this.getterCell(i, j) != 6) {
-                            this.setterCell(i, j, 1);
+                        if (this.getCell(i, j) != 5 && this.getCell(i, j) != 6) {
+                            this.setCell(i, j, 1);
                         }
                     }
                 }
