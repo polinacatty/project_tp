@@ -12,9 +12,9 @@ public class EnemyField extends Field {
     //Метод, который преобразует поле после выстрела
     public void shot(Cell cell, boolean shot) {
         if (shot) {
-            this.setCell(cell, 6);
+            setCell(cell, 6);
         } else {
-            this.setCell(cell, 1);
+            setCell(cell, 1);
         }
     }
 }

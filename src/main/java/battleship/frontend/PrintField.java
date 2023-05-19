@@ -9,8 +9,8 @@ public class PrintField {
         return field;
     }
 
-    public PrintField(Field anyfield) {
-        field = anyfield;
+    public PrintField(Field anyField) {
+        field = anyField;
     }
 
     public void print() {

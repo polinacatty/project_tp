@@ -13,38 +13,38 @@ public class Field {
     }
 
     public int getSize() {
-        return this.SIZE;
+        return SIZE;
     }
 
     public int getCell(int x, int y) {
-        return this.field[x][y];
+        return field[x][y];
     }
 
     public int getCell(Cell cell) {
-        return this.field[cell.getCoordinateX()][cell.getCoordinateY()];
+        return field[cell.getCoordinateX()][cell.getCoordinateY()];
     }
 
     public void setCell(int x, int y, int n) {
-        this.field[x][y] = n;
+        field[x][y] = n;
     }
 
     public void setCell(Cell cell, int n) {
-        this.field[cell.getCoordinateX()][cell.getCoordinateY()] = n;
+        field[cell.getCoordinateX()][cell.getCoordinateY()] = n;
     }
 
     //Метод, при помощи которого клетки вокруг корабля обретают статус видимых-пустых
-    public void borders(Ship ship) {
+    public void setBorders(Ship ship) {
         int beginX = ship.getBegin().getCoordinateX();
         int beginY = ship.getBegin().getCoordinateY();
         int endX = ship.getEnd().getCoordinateX();
         int endY = ship.getEnd().getCoordinateY();
 
-        if (ship.vertical()) {
+        if (ship.isVertical()) {
             for (int i = beginX - 1; i <= beginX + 1; i++) {
                 for (int j = Math.min(beginY, endY) - 1; j <= Math.max(beginY, endY) + 1; j++) {
                     if (i >= 0 && j >= 0 && i < 10 && j < 10) {
-                        if (this.getCell(i, j) != 5 && this.getCell(i, j) != 6) {
-                            this.setCell(i, j, 1);
+                        if (getCell(i, j) != 5 && getCell(i, j) != 6) {
+                            setCell(i, j, 1);
                         }
                     }
                 }
@@ -53,8 +53,8 @@ public class Field {
             for (int j = beginY - 1; j <= beginY + 1; j++) {
                 for (int i = Math.min(beginX, endX) - 1; i <= Math.max(beginX, endX) + 1; i++) {
                     if (i >= 0 && j >= 0 && i < 10 && j < 10) {
-                        if (this.getCell(i, j) != 5 && this.getCell(i, j) != 6) {
-                            this.setCell(i, j, 1);
+                        if (getCell(i, j) != 5 && getCell(i, j) != 6) {
+                            setCell(i, j, 1);
                         }
                     }
                 }

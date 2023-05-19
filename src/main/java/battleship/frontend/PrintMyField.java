@@ -15,23 +15,23 @@ public class PrintMyField extends PrintField{
     @Override
     public void print() {
         System.out.println("   A B C D E F G H I J");
-        for (int i = 0; i < this.getField().getSize(); i++) {
+        for (int i = 0; i < getField().getSize(); i++) {
             if (i < 9) {
                 System.out.print(" " + (i + 1));
             } else {
                 System.out.print(i + 1);
             }
-            for (int j = 0; j < this.getField().getSize(); j++) {
-                if (this.getField().getCell(j, i) == 0) {
+            for (int j = 0; j < getField().getSize(); j++) {
+                if (getField().getCell(j, i) == 0) {
                     System.out.print(" *");
                 }
-                if (this.getField().getCell(j, i) == 1) {
+                if (getField().getCell(j, i) == 1) {
                     System.out.print(" #");
                 }
-                if (this.getField().getCell(j, i) == 5) {
+                if (getField().getCell(j, i) == 5) {
                     System.out.print(" @");
                 }
-                if (this.getField().getCell(j, i) == 6) {
+                if (getField().getCell(j, i) == 6) {
                     System.out.print(" !");
                 }
             }

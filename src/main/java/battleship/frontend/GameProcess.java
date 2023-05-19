@@ -9,7 +9,7 @@ public class GameProcess {
     public GameProcess() { };
     static Scanner scanner = new Scanner(System.in);
 
-    public String acquaintance(int a) {
+    public String makeAcquaintance(int a) {
         System.out.println("Player" + a + ", enter your name");
         String namePlayer = scanner.nextLine();
         return namePlayer;
@@ -19,11 +19,16 @@ public class GameProcess {
         System.out.println("GAME FINISH\n" + player.getName() + " win!!!");
     }
 
+    public void resign(Player player) {
+        System.out.println("GAME OVER\n" + player.getName() + " resigned :(");
+    }
+
     //Расстановка кораблей игрока
-    public void placementShips(Player player) {
+    public boolean arrangeShips(Player player) {
         System.out.println("Hello, " + player.getName() + ", please, arrange your ships");
         System.out.println("Enter cell coordinates in the following format:"
                 + " 'letter''number', for example 'b5' or 'A2'");
+        System.out.println("If you want to capitulate, than print 'sur'");
 
         while (true) {
             PrintMyField printMyField = new PrintMyField(player.getMyField());
@@ -32,27 +37,40 @@ public class GameProcess {
             if (player.allShipsArePlaced()) {
                 System.out.println("All ship are placed. Are you finish?");
                 System.out.println("Write yes/no");
-                if (scanner.next().equals("yes")) {
+                String input = scanner.next();
+                if (input.equals("yes")) {
                     break;
+                } else {
+                    if (input.equals("sur")) {
+                        return true;
+                    }
                 }
             }
 
             System.out.println("If you want add ship, write 'add'; if you want delete ship, write 'del':");
             String input = scanner.next();
-            if (input.equals("add")) {
-                addShip(player);
-            } else {
-                if (input.equals("del")) {
-                    deleteShip(player);
-                } else {
+            switch (input) {
+                case "add":
+                    if (addShip(player)) {
+                        return true;
+                    }
+                    break;
+                case "del":
+                    if (deleteShip(player)) {
+                        return true;
+                    }
+                    break;
+                case "sur":
+                    return true;
+                default:
                     System.out.println("wrong input format, please, try again");
-                }
             }
         }
+        return false;
     }
 
     //Ход игрока
-    public void turn(Player me, Player enemy) {
+    public boolean makeAMove(Player me, Player enemy) {
         PrintMyField printMyField = new PrintMyField(me.getMyField());
         PrintEnemyField printEnemyField = new PrintEnemyField(me.getEnemyField());
         System.out.println(me.getName() + ", your turn");
@@ -61,67 +79,81 @@ public class GameProcess {
         System.out.println("Enemy field:");
         printEnemyField.print();
         System.out.println("Please enter coordinates of the cell where you want to shot to:");
-        Cell cell = new Cell(this.tryInputCoordinate());
+        Cell cell = new Cell(tryInputCoordinate());
+        if (cell.getCoordinateX() == -1) {
+            return true;
+        }
         if (me.attack(cell, enemy)) {
             if (enemy.shipIsDead(cell)) {
                 System.out.println("Super!!! You hit the target, ship is dead");
-                me.getEnemyField().borders(enemy.shipForCell(cell));
+                me.getEnemyField().setBorders(enemy.knowShipForCell(cell));
             } else {
                 System.out.println("Super!!! You hit the target, but ship is not dead");
             }
-            if (enemy.isLife()) {
-                turn(me, enemy);
+            if (enemy.isAlive()) {
+                makeAMove(me, enemy);
             }
         } else {
             System.out.println("You missed :(");
         }
+        return false;
     }
 
     //Метод, который обрабатывает исключение неверного ввода координаты
     private Cell tryInputCoordinate() {
         String input = scanner.next();
-        if (this.checkInputCell(input)) {
-            Cell cell = new Cell(input);
-            return cell;
+        if (checkInputCell(input)) {
+            return new Cell(input);
         } else {
-            System.out.println("wrong input format, please, try again:");
-            return this.tryInputCoordinate();
+            if (input.equals("sur")) {
+                return new Cell(-1, -1);
+            } else {
+                System.out.println("wrong input format, please, try again:");
+                return tryInputCoordinate();
+            }
         }
     }
 
     //Метод, который обрабатывает исключения неверной постановки корабля
-    private void addShip(Player player) {
+    private boolean addShip(Player player) {
         System.out.println("Enter the coordinate of the beginning of the ship:");
-        Cell begin = new Cell(this.tryInputCoordinate());
+        Cell begin = new Cell(tryInputCoordinate());
+        if (begin.getCoordinateX() == -1) {
+            return true;
+        }
         System.out.println("Enter the coordinate of the end of the ship:");
-        Cell end = new Cell(this.tryInputCoordinate());
+        Cell end = new Cell(tryInputCoordinate());
+        if (end.getCoordinateX() == -1) {
+            return true;
+        }
         if (player.tryAddShip(begin, end)) {
             System.out.println("You have successfully added a ship!");
         } else {
             System.out.println("You can`t add this ship, please, try again");
-            this.addShip(player);
+            addShip(player);
         }
+        return false;
     }
 
     //Метод, который обрабатывает исключение неверного удаления корабля
-    private void deleteShip(Player player) {
+    private boolean deleteShip(Player player) {
         System.out.println("Enter the coordinate of any cell of the ship:");
-        Cell anyCell = new Cell(this.tryInputCoordinate());
+        Cell anyCell = new Cell(tryInputCoordinate());
+        if (anyCell.getCoordinateX() == -1) {
+            return true;
+        }
         if (player.tryDeleteShip(anyCell)) {
             System.out.println("You have successfully deleted a ship!");
         } else {
             System.out.println("You can`t delete this ship, please, try again");
             deleteShip(player);
         }
+        return false;
     }
-
 
     //Метод, который проверяет правильно ли введена координата
     private boolean checkInputCell(String input) {
-        if (input.matches("^[abcdefghijABCDEFGHIJ]{1}\\d{1}")
-                || (input.matches("^[abcdefghijABCDEFGHIJ]{1}[1]{1}[0]{1}"))) {
-            return true;
-        }
-        return false;
+        return (input.matches("^[abcdefghijABCDEFGHIJ]{1}\\d{1}")
+                || (input.matches("^[abcdefghijABCDEFGHIJ]{1}[1]{1}[0]{1}")));
     }
 }

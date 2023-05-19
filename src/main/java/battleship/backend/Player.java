@@ -19,7 +19,7 @@ public class Player {
         return myField;
     }
 
-    public ArrayList<Ship> getterShips() {
+    public ArrayList<Ship> getShips() {
         return ships;
     }
 
@@ -34,52 +34,43 @@ public class Player {
         int count3DeckShips = 0;
         int count4DeckShips = 0;
 
-        for (int i = 0; i < this.ships.size(); i++) {
-            if (this.ships.get(i).getSize() == 1) {
+        for (Ship i : ships) {
+            if (i.getSize() == 1) {
                 count1DeckShips += 1;
             }
-            if (this.ships.get(i).getSize() == 2) {
+            if (i.getSize() == 2) {
                 count2DeckShips += 1;
             }
-            if (this.ships.get(i).getSize() == 3) {
+            if (i.getSize() == 3) {
                 count3DeckShips += 1;
             }
-            if (this.ships.get(i).getSize() == 4) {
+            if (i.getSize() == 4) {
                 count4DeckShips += 1;
             }
         }
-
-        if (count1DeckShips == 1 && count2DeckShips == 1 && count3DeckShips == 0 && count4DeckShips == 0) {
-            return true;
-        }
-        return false;
+        return (count1DeckShips == 1 && count2DeckShips == 1 && count3DeckShips == 0 && count4DeckShips == 0);
     }
 
     //Метод, который проверяет, попал ли игрок по кораблю противника
     private boolean hit(Cell cell, Player enemy) {
-        if (enemy.myField.getCell(cell) == 0 || enemy.myField.getCell(cell) == 1) {
-            return false;
-        }
-        return true;
+        return (enemy.myField.getCell(cell) == 5 || enemy.myField.getCell(cell) == 6);
     }
 
     //Метод, который определяет корабль по заданной точке
-    public Ship shipForCell(Cell cell) {
-        for (int i = 0; i < this.ships.size(); i++) {
-            if (this.ships.get(i).cellInShip(cell)) {
-                return this.ships.get(i);
+    public Ship knowShipForCell(Cell cell) {
+        for (Ship i: ships) {
+            if (i.cellInShip(cell)) {
+                return i;
             }
         }
-        Cell cell0 = new Cell(0, 0);
-        Ship ship = new Ship(cell0, cell0);
-        return ship;
+        return ships.get(0);
     }
 
     //Метод, который проверяет мертв ли корабль, содержащий заданную точку
     public boolean shipIsDead(Cell cell) {
-        Ship ship = this.shipForCell(cell);
+        Ship ship = knowShipForCell(cell);
         for (int j = 0; j < ship.getSize(); j++) {
-            if (this.myField.getCell(ship.getCell(j)) == 5) {
+            if (myField.getCell(ship.getCell(j)) == 5) {
                 return false;
             }
         }
@@ -88,15 +79,15 @@ public class Player {
 
     //Метод, который преобразует собственное поле противника и поле противника, которое отображается у данного игрока
     public boolean attack(Cell cell, Player enemy) {
-        enemy.myField.takingShot(cell);
-        this.enemyField.shot(cell, this.hit(cell, enemy));
-        return this.hit(cell, enemy);
+        enemy.myField.takeShot(cell);
+        enemyField.shot(cell, hit(cell, enemy));
+        return hit(cell, enemy);
     }
 
     public boolean tryAddShip(Cell begin, Cell end) {
-        if (this.myField.canAddShip(begin, end)) {
+        if (myField.canAddShip(begin, end)) {
             Ship ship = new Ship(begin, end);
-            this.myField.addShip(ship);
+            myField.addShip(ship);
             ships.add(ship);
             return true;
         }
@@ -118,7 +109,7 @@ public class Player {
     }
 
     //Метод, который проверяет жив ли игрок
-    public boolean isLife() {
-        return this.myField.survivorsShips();
+    public boolean isAlive() {
+        return myField.survivorsShips();
     }
 }
