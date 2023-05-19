@@ -14,7 +14,10 @@ public class Cell {
         coordinateY = cell.coordinateY;
     }
 
-    //Конструктор, с помощью которого создается клетка от строки вида 'буква''цифра', например: 'a1'
+    /**
+     * Constructor that creates a cell from a string of the form 'letter' 'number', for example: 'a1'
+     * @param input
+     */
     public Cell(String input) {
         int number;
         if (input.length() == 3) {
@@ -31,28 +34,49 @@ public class Cell {
             coordinateX = code - 97;
         }
     }
-
+    /**
+     * Method that gets the x coordinate
+     * @return coordinateX
+     */
     public int getCoordinateX() {
         return coordinateX;
     }
-
+    /**
+     * Method that gets the y coordinate
+     * @return coordinateY
+     */
     public int getCoordinateY() {
         return coordinateY;
     }
 
+    /**
+     * Method that sets the x coordinate
+     * @param x
+     */
     public void setCoordinateX(int x) {
         coordinateX = x;
     }
-
+    /**
+     * Method that sets the y coordinate
+     * @param y
+     */
     public void setCoordinateY(int y) {
         coordinateY = y;
     }
-
+    /**
+     * Method that compares two points
+     * @param cell
+     * @return true if points are equal and false if points are not equal
+     */
     public boolean equals(Cell cell) {
         return (coordinateX == cell.coordinateX && coordinateY == cell.coordinateY);
     }
 
-    //Метод, который проверяет, стоят ли клетки на одной линии
+    /**
+     * Method that checks if the cells are on the same line
+     * @param cell
+     * @return true if the cells are on the same line and false if the cells are not on the same line
+     */
     public boolean isCellsOnOneLine(Cell cell) {
         return (coordinateX == cell.coordinateX || coordinateY == cell.coordinateY);
     }

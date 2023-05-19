@@ -6,24 +6,43 @@ import battleship.backend.Player;
 import java.util.Scanner;
 
 public class GameProcess {
+    /**
+     * Empty constructor
+     */
     public GameProcess() { };
     static Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Method that asks for a name
+     * @param a
+     * @return namePlayer
+     */
     public String makeAcquaintance(int a) {
         System.out.println("Player" + a + ", enter your name");
         String namePlayer = scanner.nextLine();
         return namePlayer;
     }
 
+    /**
+     * Method that print the winner
+     * @param player
+     */
     public void finish(Player player) {
         System.out.println("GAME FINISH\n" + player.getName() + " win!!!");
     }
-
+    /**
+     * Method that displays the player who has surrendered
+     * @param player
+     */
     public void resign(Player player) {
         System.out.println("GAME OVER\n" + player.getName() + " resigned :(");
     }
 
-    //Расстановка кораблей игрока
+    /**
+     * Method that arranges the player's ships
+     * @param player
+     * @return true if the player surrendered during the placement of ships and false if he didn't surrender
+     */
     public boolean arrangeShips(Player player) {
         System.out.println("Hello, " + player.getName() + ", please, arrange your ships");
         System.out.println("Enter cell coordinates in the following format:"
@@ -70,6 +89,13 @@ public class GameProcess {
     }
 
     //Ход игрока
+
+    /**
+     * Method that sets the player's turn
+     * @param me
+     * @param enemy
+     * @return true if the player surrendered during the placement of ships and false if he didn't surrender
+     */
     public boolean makeAMove(Player me, Player enemy) {
         PrintMyField printMyField = new PrintMyField(me.getMyField());
         PrintEnemyField printEnemyField = new PrintEnemyField(me.getEnemyField());
@@ -99,7 +125,10 @@ public class GameProcess {
         return false;
     }
 
-    //Метод, который обрабатывает исключение неверного ввода координаты
+    /**
+     * Method that handles the invalid coordinate input exception
+     * @return the cell that the player entered and cell(-1,-1) if the player surrendered
+     */
     private Cell tryInputCoordinate() {
         String input = scanner.next();
         if (checkInputCell(input)) {
@@ -114,7 +143,11 @@ public class GameProcess {
         }
     }
 
-    //Метод, который обрабатывает исключения неверной постановки корабля
+    /**
+     * Method that handles misplaced ship exceptions
+     * @param player
+     * @return true if the player surrendered during the placement of ships and false if he didn't surrender
+     */
     private boolean addShip(Player player) {
         System.out.println("Enter the coordinate of the beginning of the ship:");
         Cell begin = new Cell(tryInputCoordinate());
@@ -135,7 +168,11 @@ public class GameProcess {
         return false;
     }
 
-    //Метод, который обрабатывает исключение неверного удаления корабля
+    /**
+     * Method that handles the invalid ship removal exception
+     * @param player
+     * @return true if the player surrendered during the placement of ships and false if he didn't surrender
+     */
     private boolean deleteShip(Player player) {
         System.out.println("Enter the coordinate of any cell of the ship:");
         Cell anyCell = new Cell(tryInputCoordinate());
@@ -151,7 +188,11 @@ public class GameProcess {
         return false;
     }
 
-    //Метод, который проверяет правильно ли введена координата
+    /**
+     * Method that checks if the coordinate input format is correct
+     * @param input
+     * @return true if the coordinate input is correct and false if the coordinate input is invalid
+     */
     private boolean checkInputCell(String input) {
         return (input.matches("^[abcdefghijABCDEFGHIJ]{1}\\d{1}")
                 || (input.matches("^[abcdefghijABCDEFGHIJ]{1}[1]{1}[0]{1}")));

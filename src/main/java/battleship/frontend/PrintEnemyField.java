@@ -3,10 +3,11 @@ package battleship.frontend;
 import battleship.backend.Field;
 
 public class PrintEnemyField extends PrintField{
-    //0(*) - еще не открытая клетка
-    //1(#) - открытая клетка, пустая
-    //6(!) - открытая клетка, принадлежащая кораблю
 
+    /**
+     * Сonstructor that creates a class object by field
+     * @param field
+     */
     public PrintEnemyField(Field field) {
         super(field);
     }

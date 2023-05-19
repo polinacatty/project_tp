@@ -3,8 +3,14 @@ package battleship.backend;
 import battleship.frontend.GameProcess;
 
 public class Game {
-    //Метод, в котором происходит игра;
-    //возвращает 1/2, если игрок под таким номером сдался, и 0, если никто не сдавался
+
+    /**
+     * Method in which the game takes place
+     * @param player1
+     * @param player2
+     * @param gameProcess
+     * @return 1/2 if the player with that number surrendered; 0 if no one surrendered
+     */
     public static int numberOfThePlayerWhoSurrendered(Player player1, Player player2, GameProcess gameProcess) {
         if (gameProcess.arrangeShips(player1)) {
             return 1;
