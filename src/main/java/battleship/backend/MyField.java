@@ -90,7 +90,7 @@ public class MyField extends Field {
         for (int i = a - 1; i <= a + 1; i++) {
             for (int j = Math.min(b, c) - 1; j <= Math.max(b, c) + 1; j++) {
                 if (i >= 0 && j >= 0 && i < 10 && j < 10) {
-                    if(isVertical) {
+                    if (isVertical) {
                         if (getCell(i, j) != 0) {
                             return false;
                         }
@@ -111,6 +111,6 @@ public class MyField extends Field {
      * @return true if the ship can be deleted and false if the ship cannot be deleted
      */
     public boolean canDeleteShip(Cell anyCell) {
-        return (getCell(anyCell) == 5);
+        return getCell(anyCell) == 5;
     }
 }

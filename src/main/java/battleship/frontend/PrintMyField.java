@@ -2,7 +2,7 @@ package battleship.frontend;
 
 import battleship.backend.Field;
 
-public class PrintMyField extends PrintField{
+public class PrintMyField extends PrintField {
 
     /**
      * Сonstructor that creates a class object by field

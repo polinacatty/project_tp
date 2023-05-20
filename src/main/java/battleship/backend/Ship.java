@@ -49,6 +49,7 @@ public class Ship {
     public Cell getBegin() {
         return begin;
     }
+
     /**
      * method that returns the ship's end cell
      * @return ship's end cell

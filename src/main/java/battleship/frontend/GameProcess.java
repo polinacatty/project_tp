@@ -2,14 +2,14 @@ package battleship.frontend;
 
 import battleship.backend.Cell;
 import battleship.backend.Player;
-
 import java.util.Scanner;
 
 public class GameProcess {
     /**
      * Empty constructor
      */
-    public GameProcess() { };
+    public GameProcess() { }
+
     static Scanner scanner = new Scanner(System.in);
 
     /**
@@ -30,6 +30,7 @@ public class GameProcess {
     public void finish(Player player) {
         System.out.println("GAME FINISH\n" + player.getName() + " win!!!");
     }
+
     /**
      * Method that displays the player who has surrendered
      * @param player
@@ -96,7 +97,7 @@ public class GameProcess {
      * @param enemy
      * @return true if the player surrendered during the placement of ships and false if he didn't surrender
      */
-    public boolean makeAMove(Player me, Player enemy) {
+    public boolean makeMove(Player me, Player enemy) {
         PrintMyField printMyField = new PrintMyField(me.getMyField());
         PrintEnemyField printEnemyField = new PrintEnemyField(me.getEnemyField());
         System.out.println(me.getName() + ", your turn");
@@ -117,7 +118,7 @@ public class GameProcess {
                 System.out.println("Super!!! You hit the target, but ship is not dead");
             }
             if (enemy.isAlive()) {
-                makeAMove(me, enemy);
+                makeMove(me, enemy);
             }
         } else {
             System.out.println("You missed :(");
@@ -194,7 +195,7 @@ public class GameProcess {
      * @return true if the coordinate input is correct and false if the coordinate input is invalid
      */
     private boolean checkInputCell(String input) {
-        return (input.matches("^[abcdefghijABCDEFGHIJ]{1}\\d{1}")
-                || (input.matches("^[abcdefghijABCDEFGHIJ]{1}[1]{1}[0]{1}")));
+        return input.matches("^[abcdefghijABCDEFGHIJ]{1}\\d{1}")
+                || (input.matches("^[abcdefghijABCDEFGHIJ]{1}[1]{1}[0]{1}"));
     }
 }

@@ -34,6 +34,7 @@ public class Cell {
             coordinateX = code - 97;
         }
     }
+
     /**
      * Method that gets the x coordinate
      * @return coordinateX
@@ -41,6 +42,7 @@ public class Cell {
     public int getCoordinateX() {
         return coordinateX;
     }
+
     /**
      * Method that gets the y coordinate
      * @return coordinateY
@@ -56,6 +58,7 @@ public class Cell {
     public void setCoordinateX(int x) {
         coordinateX = x;
     }
+
     /**
      * Method that sets the y coordinate
      * @param y
@@ -63,13 +66,14 @@ public class Cell {
     public void setCoordinateY(int y) {
         coordinateY = y;
     }
+
     /**
      * Method that compares two points
      * @param cell
      * @return true if points are equal and false if points are not equal
      */
     public boolean equals(Cell cell) {
-        return (coordinateX == cell.coordinateX && coordinateY == cell.coordinateY);
+        return coordinateX == cell.coordinateX && coordinateY == cell.coordinateY;
     }
 
     /**
@@ -78,6 +82,6 @@ public class Cell {
      * @return true if the cells are on the same line and false if the cells are not on the same line
      */
     public boolean isCellsOnOneLine(Cell cell) {
-        return (coordinateX == cell.coordinateX || coordinateY == cell.coordinateY);
+        return coordinateX == cell.coordinateX || coordinateY == cell.coordinateY;
     }
 }

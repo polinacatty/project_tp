@@ -3,7 +3,6 @@ package battleship.backend;
 import battleship.frontend.GameProcess;
 
 public class Game {
-
     /**
      * Method in which the game takes place
      * @param player1
@@ -21,12 +20,12 @@ public class Game {
 
         while (player1.isAlive()) {
 
-            if (gameProcess.makeAMove(player1, player2)) {
+            if (gameProcess.makeMove(player1, player2)) {
                 return 1;
             }
 
             if (player2.isAlive()) {
-                if (gameProcess.makeAMove(player2, player1)) {
+                if (gameProcess.makeMove(player2, player1)) {
                     return 2;
                 }
             } else {
@@ -49,7 +48,7 @@ public class Game {
             case 2:
                 gameProcess.resign(player2);
                 break;
-            case 0:
+            default:
                 if (player1.isAlive()) {
                     gameProcess.finish(player1);
                 } else {

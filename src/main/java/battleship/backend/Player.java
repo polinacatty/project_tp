@@ -72,7 +72,7 @@ public class Player {
                 count4DeckShips += 1;
             }
         }
-        return (count1DeckShips == 1 && count2DeckShips == 1 && count3DeckShips == 0 && count4DeckShips == 0);
+        return count1DeckShips == 1 && count2DeckShips == 1 && count3DeckShips == 0 && count4DeckShips == 0;
     }
 
     /**
@@ -82,7 +82,7 @@ public class Player {
      * @return true if hit and false if not hit
      */
     private boolean hit(Cell cell, Player enemy) {
-        return (enemy.myField.getCell(cell) == 5 || enemy.myField.getCell(cell) == 6);
+        return enemy.myField.getCell(cell) == 5 || enemy.myField.getCell(cell) == 6;
     }
 
     /**

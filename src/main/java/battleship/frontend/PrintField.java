@@ -1,12 +1,9 @@
 package battleship.frontend;
 
 import battleship.backend.Field;
+
 public class PrintField {
     private Field field;
-
-    public Field getField() {
-        return field;
-    }
 
     /**
      * Сonstructor that creates a class object by field
@@ -14,6 +11,14 @@ public class PrintField {
      */
     public PrintField(Field anyField) {
         field = anyField;
+    }
+
+    /**
+     * Method that returns a field
+     * @return field
+     */
+    public Field getField() {
+        return field;
     }
 
     /**
