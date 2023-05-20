@@ -4,6 +4,9 @@ public class Field {
     public static final int SIZE = 10;
     private int[][] field = new int[SIZE][SIZE];
 
+    /**
+     * Constructor that creates an empty field
+     */
     public Field() {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
@@ -71,21 +74,30 @@ public class Field {
         int endY = ship.getEnd().getCoordinateY();
 
         if (ship.isVertical()) {
-            for (int i = beginX - 1; i <= beginX + 1; i++) {
-                for (int j = Math.min(beginY, endY) - 1; j <= Math.max(beginY, endY) + 1; j++) {
-                    if (i >= 0 && j >= 0 && i < 10 && j < 10) {
+            helperMethod1(beginX, beginY, endY, true);
+        } else {
+            helperMethod1(beginY, beginX, endX, false);
+        }
+    }
+
+    /**
+     * Helper method to setBorders
+     * @param a
+     * @param b
+     * @param c
+     * @param isVertical
+     */
+    public void helperMethod1(int a, int b, int c, boolean isVertical) {
+        for (int i = a - 1; i <= a + 1; i++) {
+            for (int j = Math.min(b, c) - 1; j <= Math.max(b, c) + 1; j++) {
+                if (i >= 0 && j >= 0 && i < 10 && j < 10) {
+                    if (isVertical) {
                         if (getCell(i, j) != 5 && getCell(i, j) != 6) {
                             setCell(i, j, 1);
                         }
-                    }
-                }
-            }
-        } else {
-            for (int j = beginY - 1; j <= beginY + 1; j++) {
-                for (int i = Math.min(beginX, endX) - 1; i <= Math.max(beginX, endX) + 1; i++) {
-                    if (i >= 0 && j >= 0 && i < 10 && j < 10) {
-                        if (getCell(i, j) != 5 && getCell(i, j) != 6) {
-                            setCell(i, j, 1);
+                    } else {
+                        if (getCell(j, i) != 5 && getCell(j, i) != 6) {
+                            setCell(j, i, 1);
                         }
                     }
                 }

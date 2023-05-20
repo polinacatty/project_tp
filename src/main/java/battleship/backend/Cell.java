@@ -4,11 +4,20 @@ public class Cell {
     private int coordinateX;
     private int coordinateY;
 
+    /**
+     * Constructor that creates a cell from coordinates
+     * @param coordinateX
+     * @param coordinateY
+     */
     public Cell(int coordinateX, int coordinateY) {
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
     }
 
+    /**
+     * Constructor that creates a cell from another cell
+     * @param cell
+     */
     public Cell(Cell cell) {
         coordinateX = cell.coordinateX;
         coordinateY = cell.coordinateY;

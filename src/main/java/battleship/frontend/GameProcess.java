@@ -118,7 +118,7 @@ public class GameProcess {
                 System.out.println("Super!!! You hit the target, but ship is not dead");
             }
             if (enemy.isAlive()) {
-                makeMove(me, enemy);
+                return makeMove(me, enemy);
             }
         } else {
             System.out.println("You missed :(");

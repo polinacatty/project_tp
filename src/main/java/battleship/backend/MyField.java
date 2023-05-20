@@ -70,9 +70,9 @@ public class MyField extends Field {
             Ship ship = new Ship(cell1, cell2);
             if (ship.getSize() < 5) {
                 if (ship.isVertical()) {
-                    return helperMethod(cell1X, cell1Y, cell2Y, true);
+                    return helperMethod2(cell1X, cell1Y, cell2Y, true);
                 } else {
-                    return helperMethod(cell1Y, cell1X, cell2X, false);
+                    return helperMethod2(cell1Y, cell1X, cell2X, false);
                 }
             }
         }
@@ -86,7 +86,7 @@ public class MyField extends Field {
      * @param c
      * @param isVertical
      */
-    public boolean helperMethod(int a, int b, int c, boolean isVertical) {
+    public boolean helperMethod2(int a, int b, int c, boolean isVertical) {
         for (int i = a - 1; i <= a + 1; i++) {
             for (int j = Math.min(b, c) - 1; j <= Math.max(b, c) + 1; j++) {
                 if (i >= 0 && j >= 0 && i < 10 && j < 10) {
