@@ -164,7 +164,7 @@ public class GameProcess {
             System.out.println("You have successfully added a ship!");
         } else {
             System.out.println("You can`t add this ship, please, try again");
-            addShip(player);
+            return addShip(player);
         }
         return false;
     }
@@ -184,7 +184,7 @@ public class GameProcess {
             System.out.println("You have successfully deleted a ship!");
         } else {
             System.out.println("You can`t delete this ship, please, try again");
-            deleteShip(player);
+            return deleteShip(player);
         }
         return false;
     }
